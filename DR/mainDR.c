@@ -17,5 +17,5 @@ int main(void) {
     shmKey = ftok(".", 16535);
 
     printf("Key in Data Reader: %d\n", shmKey);
-
+    printf("Volfer testing shit\n");
 }
