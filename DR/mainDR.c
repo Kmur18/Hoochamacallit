@@ -4,8 +4,18 @@
 
 #include "../Common/common.h"
 
-int main (int argc, const char * argv[])
-{
-    printf("Hello Pork World!\n");
-    return 0;
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+
+
+int main(void) {
+    key_t shmKey;
+    shmKey = ftok(".", 16535);
+
+    printf("Key in Data Reader: %d\n", shmKey);
+
 }
