@@ -22,7 +22,7 @@
 typedef struct
 {
     pid_t dcProcessID;
-    int lastTimeHeardFrom;
+    struct tm* lastTimeHeardFrom;
 } DCInfo;
 
 // MasterList struct
