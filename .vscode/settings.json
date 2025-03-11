@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "filewriter.h": "c"
+        "filewriter.h": "c",
+        "common.h": "c"
     }
 }
