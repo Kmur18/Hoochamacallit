@@ -1,6 +1,5 @@
 #include "common.h"
 
-
 int generateRandomNumber(int min, int max) {
     // Ensure the random number generator is seeded only once
     static int seeded = 0;
