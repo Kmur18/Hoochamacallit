@@ -60,7 +60,23 @@ void dataCreatorMainLoop()
     */
 
     // The message queue exists, send the first message (everything is ok)
+    
     // sendMessage(OK_MESSAGE); // Example, look into message information
+    int systemRunning = 1;
+
+    while(systemRunning)
+    {
+        // Randomly select a message
+        // Send the message
+        // Log the message
+        
+        /*
+        if(message = 6) // EXIT MESSAGE
+        {
+            systemRunning = 0; // Too break out and exit
+        }
+        */
+    }
 
     // Test code DELETE
     int sentinel = 0;
