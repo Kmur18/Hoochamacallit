@@ -18,6 +18,10 @@
 
 #define MAX_DC_ROLES 10
 
+#define MSG_MIN 0
+#define MSG_MAX 6
+
+
 // DCInfo struct
 typedef struct
 {

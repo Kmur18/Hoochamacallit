@@ -50,8 +50,9 @@ int main(void)
   msg.messageType = MSG_OKAY;
   msg.msgType = 1;
 
-  retCode = msgsnd(msgQID, (void*)&msg, sizeof(Message) - sizeof(long), 0);
+  // retCode = msgsnd(msgQID, (void*)&msg, sizeof(Message) - sizeof(long), 0);
 
+  
 
   if (retCode == -1)
   {
