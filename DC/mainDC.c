@@ -4,11 +4,10 @@
 
 int main(void)
 {
-  key_t shmKey;
-  shmKey = ftok(".", 16535);
+  // key_t shmKey;
+  // shmKey = ftok(".", 16535);
 
-  printf("Key in Data Creator: %d\n", shmKey);
-  test();
+  // printf("Key in Data Creator: %d\n", shmKey);
 
   int sentinel = 0;
   while (sentinel != 5)

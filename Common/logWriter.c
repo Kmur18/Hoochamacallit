@@ -1,12 +1,6 @@
 #include "logWriter.h"
 #include "common.h"
 
-void test()
-{
-    printf("Testing from functions!\n\n");
-    printf("\t\tWowoeeee!\n");
-}
-
 void lock_semaphore(int semaphoreId)
 {
     struct sembuf sem_lock = {0, -1, SEM_UNDO}; // P operation (wait)
