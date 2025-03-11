@@ -75,8 +75,32 @@ int main(void) {
   strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", masterList.dc[0].lastTimeHeardFrom);
   printf("Local Time: %s\n", buffer);
 
+//Loop for receiving messages from DCs
+while (true) {
+  retCode = msgrcv(msgQID, &msg, sizeof(Message) - sizeof(long), 1, 0);
+
+  if (retCode == -1)
+  {
+    printf ("(SERVER) Error receiving message!\n");
+    perror("Error receiving message");
+    return -16;
+  }
+
+  printf("Message received: %d | %d \n", msg.messagePid, msg.messageType);
+
+if (msg.messageType == MSG_OKAY) {
+  masterList.numberOfDCs++;
+  masterList.dc[0].dcProcessID = msg.messagePid;
+  nowTime = time(NULL);
+  masterList.dc[0].lastTimeHeardFrom = localtime(&nowTime);
+
+  //char buffer[80];
+  strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", masterList.dc[0].lastTimeHeardFrom);
+  printf("Local Time: %s\n", buffer);
+}
 
 
+}
 
     msgctl(msgQID, IPC_RMID, NULL);
     printf("Queue removed\n");
