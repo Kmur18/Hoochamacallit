@@ -47,7 +47,7 @@ int main(void)
   // Send message (0) for all okay after we get msgque, before main loop
   Message msg;
   msg.messagePid = (int) getpid();
-  msg.messageType = generateRandomNumber(MSG_MIN, MSG_MAX);
+  msg.messageType = 0;
   msg.msgType = 1;
 
   int returnCode = msgsnd(messageQueueId, (void*)&msg, sizeof(Message) - sizeof(long), 0);
@@ -67,12 +67,27 @@ int main(void)
   {
     printf("In main loop sleeping 15\n");
     sleep(15);
+    //Message msg;
+    msg.messagePid = (int) getpid();
+    msg.messageType = generateRandomNumber(MSG_MIN, MSG_MAX);
+    if (msg.messageType == MSG_MACHINE_OFFLINE) break;
+    msg.msgType = 1;
+
+    returnCode = msgsnd(messageQueueId, (void*)&msg, sizeof(Message) - sizeof(long), 0);
+
+    if (returnCode == -1)
+    {
+      printf("Error sending message!\n");
+      perror("Error sending message");
+      return -15;
+    }
+
+    printf("Message sent!\n");
     // SendMessage() to queue function
     // Check return from SendMessage() function?
     // maybe use return code to know what to LOG
     // If return code tells that hte message sent was (7) exit message
     // Break while loop
-    break;
   }
 
   //dataCreatorMainLoop();
