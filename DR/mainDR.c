@@ -44,5 +44,7 @@ int main(void) {
   }
     printf("Queue created sleeping 30\n");
     sleep(30);
+    msgctl(msgQID, IPC_RMID, NULL);
+    printf("Queue removed\n");
     return 0;
 }

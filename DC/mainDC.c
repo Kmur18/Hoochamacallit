@@ -30,9 +30,10 @@ int main(void)
   }
 
   // Check for MessageQueue
-  msgQID = msgget(message_key, 0); // Doesnt need to be called in the loop, only looking for a specific MsgQue
+  msgQID = msgget(message_key, 0);
   while (msgQID == -1)
   {
+    msgQID = msgget(message_key, 0);
     // Queue doesnt exist
     printf("Message queue not found!\n");
     sleep(10);
