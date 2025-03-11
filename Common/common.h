@@ -21,7 +21,7 @@ int generateRandomNumber(int min, int max);
 
 #define MAX_DC_ROLES 10
 
-#define MSG_MIN 0
+#define MSG_MIN 1 // Skip the 0 message when generating random messages
 #define MSG_MAX 6
 
 
