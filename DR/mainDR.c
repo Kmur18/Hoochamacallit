@@ -13,9 +13,35 @@
 
 
 int main(void) {
-    key_t shmKey;
-    shmKey = ftok(".", 16535);
+    //key_t shmKey;
+    //shmKey = ftok(".", 16535);
 
-    printf("Key in Data Reader: %d\n", shmKey);
-    printf("Volfer testing shit\n");
+    //printf("Key in Data Reader: %d\n", shmKey);
+    //printf("Volfer testing shit\n");
+
+    int msgQID;
+    key_t message_key;
+
+    message_key = ftok ("..", 'M');
+  if (message_key == -1)
+  {
+    printf ("(SERVER) Cannot create key!\n");
+    fflush (stdout);
+    return 1;
+  }
+
+
+  //Checking if msgqueue exists, not creating yet
+  msgQID = msgget(message_key, 0660);
+  if (msgQID == -1)
+  {
+    //Could add errno check to see if the -1 is from lack of queue or a different error
+    printf ("(SERVER) queue does not exist\n");
+    fflush (stdout);
+    // create the message queue
+  	msgQID = msgget (message_key, IPC_CREAT | 0660);
+    sleep(15);//Sleep after creating queue
+  }
+    printf("Queue created\n");
+    return 0;
 }
