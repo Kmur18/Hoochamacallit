@@ -47,7 +47,7 @@ int main(void) {
     sleep(10);
 
   Message msg;
-  msgrcv(msgQID, &msg, sizeof(Message), 0, 0);
+  msgrcv(msgQID, &msg, sizeof(Message) - sizeof(long), 1, 0);
 
   printf("Message received: %d | %d \n", msg.messagePid, msg.messageType);
 

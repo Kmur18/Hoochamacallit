@@ -48,13 +48,15 @@ int main(void)
   Message msg;
   msg.messagePid = (int) getpid();
   msg.messageType = MSG_OKAY;
+  msg.msgType = 1;
 
-  retCode = msgsnd(msgQID, (void*)&msg, sizeof(Message), 0);
+  retCode = msgsnd(msgQID, (void*)&msg, sizeof(Message) - sizeof(long), 0);
 
 
   if (retCode == -1)
   {
     printf("Error sending message!\n");
+    perror("Error sending message");
     return -15;
   }
 
