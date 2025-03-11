@@ -1,4 +1,4 @@
-#include "../Common/common.h"
+#include "../Common/common.c"
 // #include "../Common/logWriter.h"
 #include <stdio.h>
 #include <stdlib.h>
