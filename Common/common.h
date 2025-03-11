@@ -13,6 +13,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <stdbool.h>
+#include <time.h>
 // #pragma warning(disable: 4996) // This is windows only...
 
 #define MAX_DC_ROLES 10
