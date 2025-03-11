@@ -16,7 +16,14 @@
 #include <time.h>
 // #pragma warning(disable: 4996) // This is windows only...
 
+// Function prototypes
+int generateRandomNumber(int min, int max);
+
 #define MAX_DC_ROLES 10
+
+#define MSG_MIN 0
+#define MSG_MAX 6
+
 
 // DCInfo struct
 typedef struct
@@ -60,7 +67,6 @@ typedef struct
 {
     // Linux/Unix needs this
     long msgType;
-
     int messagePid;
     int messageType;
 } Message;
