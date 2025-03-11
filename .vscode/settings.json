@@ -2,6 +2,8 @@
     "files.associations": {
         "filewriter.h": "c",
         "common.h": "c",
-        "logwriter.h": "c"
+        "logwriter.h": "c",
+        "stdlib.h": "c",
+        "types.h": "c"
     }
 }
