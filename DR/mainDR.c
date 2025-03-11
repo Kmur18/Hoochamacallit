@@ -42,6 +42,7 @@ int main(void) {
   	msgQID = msgget (message_key, IPC_CREAT | 0660);
     sleep(15);//Sleep after creating queue
   }
-    printf("Queue created\n");
+    printf("Queue created sleeping 30\n");
+    sleep(30);
     return 0;
 }

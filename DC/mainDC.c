@@ -46,7 +46,8 @@ int main(void)
   //
   while (true)
   {
-    printf("In main loop\n");
+    printf("In main loop sleeping 15\n");
+    sleep(15);
     // SendMessage() to queue function
     // Check return from SendMessage() function?
     // maybe use return code to know what to LOG
@@ -55,7 +56,7 @@ int main(void)
     break;
   }
 
-  dataCreatorMainLoop();
+  //dataCreatorMainLoop();
 
   return 0;
 }
