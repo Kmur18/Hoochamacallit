@@ -52,8 +52,9 @@ int main(void)
 
   // retCode = msgsnd(msgQID, (void*)&msg, sizeof(Message) - sizeof(long), 0);
 
-  int messageNumber = generateRandomNumber
+  int messageType = generateRandomNumber(MSG_MIN, MSG_MAX);
 
+  printf("Message type: %s\n", MessageStrings[messageType]);
   // if (retCode == -1)
   // {
   //   printf("Error sending message!\n");
