@@ -42,14 +42,41 @@ int main(void) {
   	msgQID = msgget (message_key, IPC_CREAT | 0660);
     sleep(15);//Sleep after creating queue
   }
-  //msgctl(msgQID, IPC_RMID, NULL);
-    printf("Queue created sleeping 10\n");
-    sleep(10);
 
+  printf("Queue created sleeping 10\n");
+  sleep(10);
+
+  // Create master list initialized to 0
+  MasterList masterList = {0};
+
+  // Message received return code
+  int retCode;
+
+  // Create and receive msg from messagequeue
   Message msg;
-  msgrcv(msgQID, &msg, sizeof(Message) - sizeof(long), 1, 0);
+  retCode = msgrcv(msgQID, &msg, sizeof(Message) - sizeof(long), 1, 0);
+
+  if (retCode == -1)
+  {
+    printf ("(SERVER) Error receiving message!\n");
+    perror("Error receiving message");
+    return -16;
+  }
 
   printf("Message received: %d | %d \n", msg.messagePid, msg.messageType);
+
+  // Alter masterList
+  masterList.numberOfDCs++;
+  masterList.dc[0].dcProcessID = msg.messagePid;
+  time_t nowTime = time(NULL);
+  masterList.dc[0].lastTimeHeardFrom = localtime(&nowTime);
+
+  char buffer[80];
+  strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", masterList.dc[0].lastTimeHeardFrom);
+  printf("Local Time: %s\n", buffer);
+
+
+
 
     msgctl(msgQID, IPC_RMID, NULL);
     printf("Queue removed\n");

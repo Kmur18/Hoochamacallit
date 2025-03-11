@@ -7,7 +7,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
-#include "../Common/common.h"
+#include "../Common/common.c"
 
 // Define the choice options
 #define DO_NOTHING_00 0
@@ -62,7 +62,7 @@ int main (int argc, const char * argv[])
 
 
   //WHEEL OF megaDEATH
-  choice =
+  choice = generateRandomNumber(DO_NOTHING_00, KILL_DC_10_20);
 
   switch(choice){
     case DO_NOTHING_00:
@@ -96,6 +96,7 @@ int main (int argc, const char * argv[])
       break;
 
     case DELETE_QUEUE_10:
+      msgctl(msgQID, IPC_RMID, NULL);
       break;
 
     case KILL_DC_01_11:
@@ -117,6 +118,7 @@ int main (int argc, const char * argv[])
       break;
 
     case DELETE_QUEUE_17:
+      msgctl(msgQID, IPC_RMID, NULL);
       break;
 
     case KILL_DC_09_18:
