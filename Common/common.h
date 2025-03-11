@@ -57,6 +57,9 @@ const char *MessageStrings[] = {
 
 typedef struct
 {
+    // Linux/Unix needs this
+    //long type;
+
     int messagePid;
     int messageType;
 } Message;

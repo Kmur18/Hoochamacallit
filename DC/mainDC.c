@@ -42,8 +42,24 @@ int main(void)
 
   printf("Message queue found!\n");
 
+  int retCode;
   //
   // Send message (0) for all okay after we get msgque, before main loop
+  Message msg;
+  msg.messagePid = (int) getpid();
+  msg.messageType = MSG_OKAY;
+
+  retCode = msgsnd(msgQID, (void*)&msg, sizeof(Message), 0);
+
+
+  if (retCode == -1)
+  {
+    printf("Error sending message!\n");
+    return -15;
+  }
+
+  printf("Message sent!\n");
+
   //
   while (true)
   {

@@ -42,8 +42,15 @@ int main(void) {
   	msgQID = msgget (message_key, IPC_CREAT | 0660);
     sleep(15);//Sleep after creating queue
   }
-    printf("Queue created sleeping 30\n");
-    sleep(30);
+  //msgctl(msgQID, IPC_RMID, NULL);
+    printf("Queue created sleeping 10\n");
+    sleep(10);
+
+  Message msg;
+  msgrcv(msgQID, &msg, sizeof(Message), 0, 0);
+
+  printf("Message received: %d | %d \n", msg.messagePid, msg.messageType);
+
     msgctl(msgQID, IPC_RMID, NULL);
     printf("Queue removed\n");
     return 0;
