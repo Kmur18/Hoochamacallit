@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# TEMPORARY, EDIT BEFORE HANDING IN!
+cc -Wall -g DR/mainDR.c Common/logWriter.c -o mainDR

@@ -12,6 +12,6 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
-#pragma warning(disable: 4996)
+// #pragma warning(disable: 4996) // This is windows only...
 
 #endif //COMMON_H
