@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "filewriter.h": "c",
-        "common.h": "c"
+        "common.h": "c",
+        "logwriter.h": "c"
     }
 }

@@ -1,6 +1,7 @@
-#include "../Common/common.h"
-#include "../Common/logWriter.h"
+// #include "../Common/common.h"
+// #include "../Common/logWriter.h"
 
+#include "dataCreatorFunctions.h"
 
 int main(void)
 {
@@ -9,12 +10,6 @@ int main(void)
 
   // printf("Key in Data Creator: %d\n", shmKey);
 
-  int sentinel = 0;
-  while (sentinel != 5)
-  {
-    printf("Writing #%d\n", sentinel);
-    writeToFileWithSemaphore("Log message!", DC_PATH);
-    sentinel++;
-  }
+  dataCreatorMainLoop();
 
 }

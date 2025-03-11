@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # TEMPORARY, EDIT BEFORE HANDING IN!
-cc -Wall -g DC/mainDC.c Common/logWriter.c -o mainDC
+cc -Wall -g DC/mainDC.c Common/logWriter.c DC/dataCreatorFunctions.c -o mainDC
