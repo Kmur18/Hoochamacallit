@@ -12,4 +12,6 @@ int main(void)
 
   dataCreatorMainLoop();
 
+  return 0;
+
 }

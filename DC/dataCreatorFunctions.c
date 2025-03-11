@@ -64,10 +64,11 @@ void dataCreatorMainLoop()
 
     // Test code DELETE
     int sentinel = 0;
-    while (sentinel != 5)
+    while (sentinel != 50)
     {
         printf("Writing #%d\n", sentinel);
         writeToFileWithSemaphore("Log message!", DC_LOG);
         sentinel++;
+        sleep(1);
     }
 }
