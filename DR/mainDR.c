@@ -35,7 +35,7 @@ int main(void) {
   	msgQID = msgget (message_key, IPC_CREAT | 0660);
     sleep(15);//Sleep after creating queue
   }
-
+//msgctl(msgQID, IPC_RMID, NULL);
   printf("Queue created sleeping 10\n");
   sleep(10);
 
@@ -69,7 +69,7 @@ int main(void) {
   printf("Local Time: %s\n", buffer);
 
 //Loop for receiving messages from DCs
-while (true) {
+while (masterList.numberOfDCs > 0 && masterList.numberOfDCs <= MAX_DC_ROLES) {
   retCode = msgrcv(msgQID, &msg, sizeof(Message) - sizeof(long), 1, 0);
 
   if (retCode == -1)
@@ -81,17 +81,18 @@ while (true) {
 
   printf("Message received: %d | %d \n", msg.messagePid, msg.messageType);
 
-if (msg.messageType == MSG_OKAY) {
-  masterList.numberOfDCs++;
-  masterList.dc[0].dcProcessID = msg.messagePid;
-  nowTime = time(NULL);
-  masterList.dc[0].lastTimeHeardFrom = localtime(&nowTime);
-
-  //char buffer[80];
-  strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", masterList.dc[0].lastTimeHeardFrom);
-  printf("Local Time: %s\n", buffer);
+if (msg.messageType == MSG_MACHINE_OFFLINE) {
+    for (int i = 0; i < masterList.numberOfDCs; i++) {
+        if (masterList.dc[i].dcProcessID == msg.messagePid) {
+            // Shift all elements after the found DC to the left
+            for (int j = i; j < masterList.numberOfDCs - 1; j++) {
+            masterList.dc[j] = masterList.dc[j + 1];
+            }
+            masterList.numberOfDCs--;
+            break; // Exit the loop after removing the DC
+        }
+    }
 }
-
 
 }
 
