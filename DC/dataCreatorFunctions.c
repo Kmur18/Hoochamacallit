@@ -67,7 +67,7 @@ void dataCreatorMainLoop()
     while (sentinel != 5)
     {
         printf("Writing #%d\n", sentinel);
-        writeToFileWithSemaphore("Log message!", DC_PATH);
+        writeToFileWithSemaphore("Log message!", DC_LOG);
         sentinel++;
     }
 }

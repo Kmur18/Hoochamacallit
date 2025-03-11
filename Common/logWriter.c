@@ -23,7 +23,7 @@ DX_PATH
 To write to their respective file paths
 
 */
-void writeToFileWithSemaphore(char *stringToWrite, char* file_path)
+void writeToFileWithSemaphore(char *stringToWrite, int logType)
 {
     // Generate a key for the semaphore
     key_t key = ftok(SEM_KEY_PATH, SEM_ID);
@@ -47,6 +47,29 @@ void writeToFileWithSemaphore(char *stringToWrite, char* file_path)
     // Lock semaphore before writing
     lock_semaphore(semid);
 
+    // Null because assigned later
+    char *file_path = NULL;
+
+    switch (logType)
+    {
+        // Data Creator Log
+    case DC_LOG:
+        file_path = DC_PATH;
+        break;
+
+        // Data Reader Log
+    case DR_LOG:
+        file_path = DR_PATH;
+        break;
+
+        // Data Destroyer Log
+    case DX_LOG:
+        file_path = DX_PATH;
+        break;
+
+    default:
+        break;
+    }
 
     FILE *file = fopen(file_path, "a");
     if (file == NULL)
@@ -56,7 +79,9 @@ void writeToFileWithSemaphore(char *stringToWrite, char* file_path)
         exit(EXIT_FAILURE);
     }
 
-    // This is where the writing occurs WITH the semaphore
+    // fprintf() will need to be above in EACH switch to ensure the log
+    // is written the way it is supposed to be
+    // each program has a different log style
     fprintf(file, "String: \"%s\" - From PID: %d\n", stringToWrite, getpid());
     fclose(file);
 
