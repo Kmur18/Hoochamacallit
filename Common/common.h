@@ -15,4 +15,20 @@
 #include <stdbool.h>
 // #pragma warning(disable: 4996) // This is windows only...
 
-#endif //COMMON_H
+#define MAX_DC_ROLES 10
+
+typedef struct
+{
+    pid_t dcProcessID;
+    int lastTimeHeardFrom;
+} DCInfo;
+
+typedef struct
+{
+    int msgQueueID;
+    int numberOfDCs;
+    DCInfo dc[MAX_DC_ROLES];
+} MasterList;
+
+
+#endif // COMMON_H
