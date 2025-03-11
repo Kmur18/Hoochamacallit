@@ -55,4 +55,10 @@ const char *MessageStrings[] = {
     "Machine is Off-line"                 // MSG_MACHINE_OFFLINE
 };
 
+typedef struct
+{
+    int messagePid;
+    int messageType;
+} Message;
+
 #endif // COMMON_H
