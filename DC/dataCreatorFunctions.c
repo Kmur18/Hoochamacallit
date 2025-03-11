@@ -62,7 +62,7 @@ void dataCreatorMainLoop()
     // The message queue exists, send the first message (everything is ok)
     
     // sendMessage(OK_MESSAGE); // Example, look into message information
-    int systemRunning = 1;
+    int systemRunning = 0;
 
     while(systemRunning)
     {
