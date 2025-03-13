@@ -32,6 +32,7 @@ typedef struct
 {
     pid_t dcProcessID;
     struct tm* lastTimeHeardFrom;
+    //struct tm lastTimeHeardFrom;
 } DCInfo;
 
 // MasterList struct

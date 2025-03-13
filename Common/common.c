@@ -31,6 +31,8 @@ int checkEventTime(struct tm* event_time_tm)
     }
 
     // Calculate the difference in time (in seconds)
+    printf("Time now = %ld\n", now);
+    printf("EventTime = %ld\n", event_time);
     double timeDifference = difftime(now, event_time);
     printf("Time Diff: %lf seconds\n", timeDifference);
 

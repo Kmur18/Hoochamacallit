@@ -3,6 +3,7 @@
 //
 
 #include "../Common/common.c"
+#include <errno.h>
 
 
 int main(void) {
@@ -36,7 +37,7 @@ int main(void) {
     sleep(15);//Sleep after creating queue
   }
   // *********************** GET RID ONCE READY - THIS IS FOR MANUALLY DESTROYING THE MSGQUEUE IF THE PROGRAM FAILS TO REACH THE END
-//msgctl(msgQID, IPC_RMID, NULL);
+  //msgctl(msgQID, IPC_RMID, NULL);
   printf("Queue created sleeping 10\n");
   sleep(10);
 
@@ -72,13 +73,17 @@ int main(void) {
 //Loop for receiving messages from DCs
 while (masterList.numberOfDCs > 0 && masterList.numberOfDCs <= MAX_DC_ROLES)
 {
-  retCode = msgrcv(msgQID, &msg, sizeof(Message) - sizeof(long), 1, 0);
+  retCode = msgrcv(msgQID, &msg, sizeof(Message) - sizeof(long), 1, IPC_NOWAIT);
 
   if (retCode == -1)
   {
-    printf ("(SERVER) Error receiving message!\n");
-    perror("Error receiving message");
-    return -16;
+    if (errno == ENOMSG) {
+      printf("No message in queue, continuing without blocking...\n");
+    } else {
+      printf ("(SERVER) Error receiving message!\n");
+      perror("Error receiving message");
+      return -16;
+    }
   }
 
   printf("Message received: %d | %d \n", msg.messagePid, msg.messageType);
@@ -115,23 +120,27 @@ while (masterList.numberOfDCs > 0 && masterList.numberOfDCs <= MAX_DC_ROLES)
       }
     }
   }
-  else // We got a msg from 1-5 update its pid's time heard from
+  else if (msg.messageType == MSG_HYDRAULIC_PRESSURE_FAILURE || msg.messageType == MSG_SAFETY_BUTTON_FAILURE
+    || msg.messageType == MSG_NO_RAW_MATERIAL || msg.messageType == MSG_TEMPERATURE_OUT_OF_RANGE
+    || msg.messageType == MSG_OPERATOR_ERROR) // We got a msg from 1-5 update its pid's time heard from
   {
     // Add msg time to master list
-    for (int i = 0; i < masterList.numberOfDCs; i++)
-    {
-      // check for dc pid's
-      if (masterList.dc[i].dcProcessID == msg.messagePid)
+    if (retCode != -1) {
+      for (int i = 0; i < masterList.numberOfDCs; i++)
       {
-        // We have heard from this pid - Store the time received
-        masterList.dc[i].lastTimeHeardFrom = localtime(&nowTime);
+        // check for dc pid's
+        if (masterList.dc[i].dcProcessID == msg.messagePid)
+        {
+          // We have heard from this pid - Store the time received
+          masterList.dc[i].lastTimeHeardFrom = localtime(&nowTime);
+        }
       }
     }
   }
 
   // Variable for return of the time checker
   int heardStatus;
-printf("bob\n");
+  printf("bob\n");
   // Check master list last heard from to cut off all who hasn't been heard from in 35 seconds
   for (int i = 0; i < masterList.numberOfDCs; i++)
   {
