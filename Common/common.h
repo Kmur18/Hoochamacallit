@@ -19,11 +19,12 @@
 
 // Function prototypes
 int generateRandomNumber(int min, int max);
+int checkEventTime(struct tm* event_time_tm);
 
 #define MAX_DC_ROLES 10
 
 #define MSG_MIN 1 // Skip the 0 message when generating random messages
-#define MSG_MAX 6
+#define MSG_MAX 5 // Change back to 6
 
 
 // DCInfo struct

@@ -82,6 +82,7 @@ int main(void)
     }
 
     printf("Message sent!\n");
+    printf("Message: %d | %d \n", msg.messagePid, msg.messageType);
     // SendMessage() to queue function
     // Check return from SendMessage() function?
     // maybe use return code to know what to LOG
